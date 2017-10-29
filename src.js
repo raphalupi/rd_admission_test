@@ -1,15 +1,19 @@
 'use strict';
 
+var providedURL = "http://roberval.chaordicsystems.com/challenge/challenge.json?callback=X"; 
+var providedURLHTTPS = "https://roberval.chaordicsystems.com/challenge/challenge.json?callback=X";
+
 // Simulates JQuery 'ready' event
 document.addEventListener("DOMContentLoaded", function(event) {
-    fetchData();
+    fetchData(providedURL);
+    fetchData(providedURLHTTPS);
 });
 
 // Fetches the JSONP from the provided server
-function fetchData() {
+function fetchData(url) {
     var script = document.createElement("script");
     script.setAttribute("type", "text/javascript");
-    script.src = "http://roberval.chaordicsystems.com/challenge/challenge.json?callback=X";
+    script.src = url;
     document.body.appendChild(script);
 }
 
