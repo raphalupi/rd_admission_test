@@ -4,7 +4,7 @@
 	<meta charset=utf-8>
 	<meta name=description content="Admissional test code for Chaordic">
 	<meta name=viewport content="width=device-width, initial-scale=1">
-	<title>Chaordic admissional test - Raphael Lupchinski</title>
+	<title>Teste Admissional :: Chaordic</title>
 	<link rel=stylesheet href="style.css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Work+Sans:900" rel="stylesheet">
@@ -14,19 +14,18 @@
 <body>
 	<div class="root">
 		<h1 class="title">
-			Teste Admissional - Raphael Lupchinski
+			Teste Admissional :: Chaordic
 		</h1>
 
 		<p class="description">
-			Caso a aplicação tenha falhado por conta de erros HTTP vs. HTTPS, clique no botão abaixo para alimentar a vitrine com os dados do JSON de exemplo.
-			Pode causar problemas com o encoding dos caracteres.
+			Caso a aplicação tenha falhado por conta de erros HTTP vs. HTTPS, clique no botão abaixo para alimentar a vitrine com os dados do JSON de exemplo. Pode causar problemas com o encoding dos caracteres.
 		</p>
 
 		<button type="button" onclick="fetchDataFromJSON(event)">
 			Usar JSON local
 		</button>
 
-		<div id="showcase-wrapper" class="showcase-wrapper">
+		<div id="showcase-wrapper" class="showcase-wrapper flex-row-sm flex-column">
 			<div class="showcase-reference-wrapper">
 				<div class="showcase-header left">Você visitou:</div>
 				<div id="reference-product" class="showcase-body left"></div>
@@ -36,11 +35,19 @@
 				<div id="suggestion-products" class="showcase-body right">
 					<div class="carousel-wrapper">
 						<div id="suggestion-products-list" class="showcase-body-list"></div>
-						<div id="prev-button-wrapper" class="showcase-button-wrapper left">
-							<button type="button" class="showcase-button left" onclick="prev(event)">&lt;</button>
+						<div id="prev-button-wrapper" class="showcase-button-wrapper left" onclick="prev(event)">
+							<button type="button" class="showcase-button left">
+								<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="30px" viewBox="0 0 1280 1792" class="icon">
+									<path fill="currentColor" d="M1171 301l-531 531 531 531q19 19 19 45t-19 45l-166 166q-19 19-45 19t-45-19l-742-742q-19-19-19-45t19-45l742-742q19-19 45-19t45 19l166 166q19 19 19 45t-19 45z"/>
+								</svg>
+							</button>
 						</div>
-						<div id="next-button-wrapper" class="showcase-button-wrapper right">
-							<button type="button" class="showcase-button right" onclick="next(event)">&gt;</button>
+						<div id="next-button-wrapper" class="showcase-button-wrapper right" onclick="next(event)">
+							<button type="button" class="showcase-button right">
+								<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="30px" viewBox="0 0 1280 1792" class="icon">
+									<path fill="currentColor" d="M1107 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"/>
+								</svg>
+							</button>
 						</div>
 					</div>
 				</div>
