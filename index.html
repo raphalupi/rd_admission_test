@@ -17,7 +17,7 @@
 			Teste Admissional - Raphael Lupchinski
 		</h1>
 
-		<p>
+		<p class="description">
 			Caso a aplicação tenha falhado por conta de erros HTTP vs. HTTPS, clique no botão abaixo para alimentar a vitrine com os dados do JSON de exemplo.
 			Pode causar problemas com o encoding dos caracteres.
 		</p>
@@ -36,8 +36,12 @@
 				<div id="suggestion-products" class="showcase-body right">
 					<div class="carousel-wrapper">
 						<div id="suggestion-products-list" class="showcase-body-list"></div>
-						<div id="prev-button-wrapper" class="showcase-button-wrapper left"></div>
-						<div id="next-button-wrapper" class="showcase-button-wrapper right"></div>
+						<div id="prev-button-wrapper" class="showcase-button-wrapper left">
+							<button type="button" class="showcase-button left" onclick="prev(event)">&lt;</button>
+						</div>
+						<div id="next-button-wrapper" class="showcase-button-wrapper right">
+							<button type="button" class="showcase-button right" onclick="next(event)">&gt;</button>
+						</div>
 					</div>
 				</div>
 			</div>

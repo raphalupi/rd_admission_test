@@ -1,12 +1,10 @@
 'use strict';
 
 var providedURL = "http://roberval.chaordicsystems.com/challenge/challenge.json?callback=X"; 
-var providedURLHTTPS = "https://roberval.chaordicsystems.com/challenge/challenge.json?callback=X";
 
 // Simulates JQuery 'ready' event
 document.addEventListener("DOMContentLoaded", function(event) {
-    fetchData(providedURL);
-    fetchData(providedURLHTTPS);
+    fetchData();
 });
 
 // Fetches the local JSON
@@ -15,16 +13,16 @@ function fetchDataFromJSON(event) {
 }
 
 // Fetches the JSONP from the provided server
-function fetchData(url) {
+function fetchData() {
     var script = document.createElement("script");
     script.setAttribute("type", "text/javascript");
-    script.src = url;
+    script.src = providedURL;
     document.body.appendChild(script);
 }
 
 // Handles the callback provided from the JSONP
 function X(JSONPData) {
-    console.log(JSONPData);
+    console.log(['Fetched data:', JSONPData]);
 
     var referenceProduct, suggestionProducts;
 
@@ -44,6 +42,8 @@ function X(JSONPData) {
 
     createReferenceProduct(referenceProduct);
     createSuggestions(suggestionProducts);
+
+    updateCarouselControls();
 }
 
 // Create a product card and adds it to the 'Reference product' container
@@ -67,11 +67,6 @@ function createReferenceProduct(product) {
 }
 
 function createSuggestions(products) {
-    /*while (referenceProductDiv.hasChildNodes()) {
-
-    }*/
-    console.log(products);
-
     if (products) {
         var productCards = products.map(function(prod) {
             return _createProductCard(prod);
@@ -99,8 +94,6 @@ function createSuggestions(products) {
 }
 
 function _createProductCard(product) {
-    console.log(['createProductCard :: creating card for product:', product]);
-
     var card = document.createElement('a');
     card.setAttribute("class", "product-wrapper");
     card.setAttribute("id", "product-" + product.businessId);
@@ -210,11 +203,46 @@ function _createProductPaymentConditions(paymentConditions) {
     return paymentConditionsNode;
 }
 
-/* Showcase navigation */
-function next() {
+/* Showcase config */
+// variables for carousel control
+var containerWidth = 0,
+    listWidth = 0,
+    numCards = 0,
+    cardWidth = 170,
+    fullCardsPerPage = 0,
+    currentCard = 0,
+    hasMoreLeft = false,
+    hasMoreRight = false;
 
+function updateCarouselControls() {
+    var listWrapperDiv = document.getElementById('suggestion-products');
+    var listDiv = document.getElementById('suggestion-products-list');
+
+    containerWidth = listWrapperDiv.offsetWidth;
+    listWidth = listDiv.offsetWidth;
+    numCards = listDiv.childNodes.length;
+    fullCardsPerPage = Math.floor(containerWidth / cardWidth);
+
+    console.log([containerWidth, listWidth, numCards, fullCardsPerPage]);
 }
 
-function prev() {
+/* Showcase navigation */
+function next(e) {
+    var prevBtnWrapper = document.getElementById('prev-button-wrapper'),
+        nextBtnWrapper = document.getElementById('next-button-wrapper'),
+        listDiv = document.getElementById('suggestion-products-list');
 
+    currentCard = Math.min(currentCard + 1, numCards - 1);
+
+    listDiv.style.marginLeft = (-1 * currentCard * cardWidth) + "px";
+}
+
+function prev(e) {
+    var prevBtnWrapper = document.getElementById('prev-button-wrapper'),
+        nextBtnWrapper = document.getElementById('next-button-wrapper'),
+        listDiv = document.getElementById('suggestion-products-list');
+
+    currentCard = Math.max(currentCard - 1, 0);
+
+    listDiv.style.marginLeft = (-1 * currentCard * cardWidth) + "px";
 }
