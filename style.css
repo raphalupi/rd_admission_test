@@ -45,6 +45,7 @@
 .showcase-wrapper {
 	display: flex;
 	flex-direction: row;
+	margin-top: 30px;
 }
 
 .showcase-reference-wrapper {
@@ -74,10 +75,12 @@
 .showcase-header.right {
 	padding-left: 10px;
 	border-top-right-radius: 5px;
+	white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
 }
 
 .showcase-body {
-	padding: 10px 10px 30px;
 	position: relative;
 	background: var(--color-white);
     background: -webkit-linear-gradient(var(--color-white) 95%, var(--color-blue-1));
@@ -87,6 +90,7 @@
 }
 
 .showcase-body.left {
+	padding: 10px 10px 30px;
 	border-left: solid 2px var(--color-blue-1);
 	border-bottom: solid 2px var(--color-blue-1);
 	border-bottom-left-radius: 5px;
@@ -110,29 +114,65 @@
 	display: flex;
 	flex-direction: row;
 	overflow-x: hidden;
+	padding: 10px 0 30px;
 	border-right: solid 2px var(--color-blue-1);
 	border-bottom: solid 2px var(--color-blue-1);
 	border-bottom-right-radius: 5px;
 }
 
+.carousel-wrapper {
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	overflow-x: hidden;
+}
+
 .showcase-body-list {
 	display: flex;
 	flex-direction: row;
-	overflow-x: hidden;
-	margin: 0 -5px;
+	padding: 0 30px;
 }
 
-.showcase-scroll {
-	padding: 0 10px;
-	position: relative;
-}
-
-.showcase-scroll > .button-wrapper {
-	left: 50%;
-	right: 50%;
-	top: 30%;
+.showcase-button-wrapper {
 	position: absolute;
-	width: 10px;
+	top: 0;
+	bottom: 0;
+	width: 30px;
+	background-color: white;
+}
+
+.showcase-button-wrapper.left {
+	left: 0;
+}
+
+.showcase-button-wrapper.left.has-more:after {
+	content: '';
+    position: absolute;
+	width: 30px;
+	height: 100%;
+    left: 100%;
+	background: var(--color-transparent);
+    background: -webkit-linear-gradient(left, var(--color-white), var(--color-transparent));
+    background: -o-linear-gradient(right, var(--color-white), var(--color-transparent));
+    background: -moz-linear-gradient(right, var(--color-white), var(--color-transparent));
+    background: linear-gradient(to right, var(--color-white), var(--color-transparent));
+}
+
+.showcase-button-wrapper.right {
+	right: 0;
+}
+
+.showcase-button-wrapper.right.has-more:after {
+	content: '';
+    position: absolute;
+	width: 30px;
+	height: 100%;
+    right: 100%;
+	background: var(--color-transparent);
+    background: -webkit-linear-gradient(right, var(--color-white), var(--color-transparent));
+    background: -o-linear-gradient(left, var(--color-white), var(--color-transparent));
+    background: -moz-linear-gradient(left, var(--color-white), var(--color-transparent));
+    background: linear-gradient(to left, var(--color-white), var(--color-transparent));
 }
 
 /* Product card rules */

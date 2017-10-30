@@ -9,6 +9,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
     fetchData(providedURLHTTPS);
 });
 
+// Fetches the local JSON
+function fetchDataFromJSON(event) {
+    X(localJSONData);
+}
+
 // Fetches the JSONP from the provided server
 function fetchData(url) {
     var script = document.createElement("script");
@@ -47,14 +52,24 @@ function createReferenceProduct(product) {
         // create a card for the reference product
         var productCard = _createProductCard(product);
         
+        var referenceProductDiv = document.getElementById('reference-product');
+        
+        // removes the previous product
+        if (referenceProductDiv.hasChildNodes()) {
+            referenceProductDiv.removeChild(referenceProductDiv.firstChild);
+        }
+
         // adds the reference product to its container
-        document.getElementById('reference-product').appendChild(productCard);
+        referenceProductDiv.appendChild(productCard);
     } else {
         console.warn('No reference product provided.');
     }
 }
 
 function createSuggestions(products) {
+    /*while (referenceProductDiv.hasChildNodes()) {
+
+    }*/
     console.log(products);
 
     if (products) {
@@ -65,6 +80,12 @@ function createSuggestions(products) {
         var suggestionsDiv = document.getElementById('suggestion-products-list');
         var gutterWrapper;
 
+        // remove old products
+        while (suggestionsDiv.hasChildNodes()) {
+            suggestionsDiv.removeChild(suggestionsDiv.firstChild);
+        }
+
+        // adds new products to the list
         productCards.forEach(function(card) {
             gutterWrapper = document.createElement('div');
             gutterWrapper.setAttribute("class", "product-wrapper-gutter");

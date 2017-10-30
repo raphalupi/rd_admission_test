@@ -8,13 +8,23 @@
 	<link rel=stylesheet href="style.css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Work+Sans:900" rel="stylesheet">
-	<script src="src.js"></script>
+	<script type="text/javascript" src="data.json"></script>
+	<script type="text/javascript" src="src.js"></script>
 </head>
 <body>
 	<div class="root">
 		<h1 class="title">
 			Teste Admissional - Raphael Lupchinski
 		</h1>
+
+		<p>
+			Caso a aplicação tenha falhado por conta de erros HTTP vs. HTTPS, clique no botão abaixo para alimentar a vitrine com os dados do JSON de exemplo.
+			Pode causar problemas com o encoding dos caracteres.
+		</p>
+
+		<button type="button" onclick="fetchDataFromJSON(event)">
+			Usar JSON local
+		</button>
 
 		<div id="showcase-wrapper" class="showcase-wrapper">
 			<div class="showcase-reference-wrapper">
@@ -24,14 +34,10 @@
 			<div class="showcase-suggestion-wrapper">
 				<div class="showcase-header right">e talvez se interesse por:</div>
 				<div id="suggestion-products" class="showcase-body right">
-					<div id="scroll-left-wrapper" class="showcase-scroll">
-						<img src="" class="button-wrapper" />
-					</div>
-					<div id="scroll-left-gradient"></div>
-					<div id="suggestion-products-list" class="showcase-body-list"></div>
-					<div id="scroll-right-gradient"></div>
-					<div id="scroll-right-wrapper" class="showcase-scroll">
-						<img src="" class="button-wrapper" />
+					<div class="carousel-wrapper">
+						<div id="suggestion-products-list" class="showcase-body-list"></div>
+						<div id="prev-button-wrapper" class="showcase-button-wrapper left"></div>
+						<div id="next-button-wrapper" class="showcase-button-wrapper right"></div>
 					</div>
 				</div>
 			</div>
