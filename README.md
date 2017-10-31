@@ -42,9 +42,9 @@ To overcome that, I've added the JSONP contents to the project and a button on p
 Results were achieved with pure Javascript, without using any lib that would improve workflow or facilitate some tasks.
 Due to that, some adjustments were made so it would work correctly across multiple browsers:
 
-* Some elements were rearranged on small screens (less tha 425 pixels wide) to preserve navigation and readability in the showcase.
+* Some elements were rearranged on small screens (less than 425 pixels wide) to preserve navigation and readability in the showcase.
 * Most of the CSS used for layout were based on Flexbox. I wasn't able to test on a updated Safari browser, but I've avoided using limited styles because of that.
-* CSS variables were ditched due to the lack of support in IE, so to avoid IFying IE to fetch a different CSS, I've replaced variables with their values.
+* CSS variables were ditched due to the lack of support in IE, so to avoid IF-ing IE to fetch a different CSS, I've replaced variables with their values.
 
 Regarding JavaScript:
 
@@ -53,7 +53,7 @@ Regarding JavaScript:
 * Showcase navigation works with clicks on the left and right arrows.
 * The amount of elements being scrolled matches the numer of elements being rendered fully on screen.
 * Page resize updates the scroll behavior, as it may affect the amount of visible elements.
-* Resizing screen scrools back to the first element.
+* Resizing screen scrolls back to the first element.
 
 And that sums up what's on top of my head. We may discuss this in the future, hopefully :)
 
