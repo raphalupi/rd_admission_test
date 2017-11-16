@@ -1,8 +1,15 @@
-import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
+
+// Polyfills
+import 'babel-polyfill';
+import 'core-js/fn/object/assign';
+import 'core-js/fn/promise';
+import 'core-js/fn/symbol';
+import 'core-js/es6/map';
+import 'core-js/es6/set';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -18,7 +25,7 @@ render(
         <BrowserRouter>
             <div>
                 <Route path="/" component={AppHeader} />
-                <div className="container-fluid">
+                <div className="container">
                     <Route path="/" component={SearchPage} exact />
                     <Route path="/favorites" component={FavoritesPage} />
                     <Route path="/book/:id" component={BookPage} />

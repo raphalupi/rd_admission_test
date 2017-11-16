@@ -14,18 +14,18 @@ class SearchPage extends Component {
     }
 
     onSearch(q, sort, page, rowsPerPage) {
-        console.log('onSearch', q, sort, page, rowsPerPage);
-
         const { onSearchBooks } = this.props;
-
         onSearchBooks(q, sort, page, rowsPerPage);
     }
 
     render() {
-        const { searchResults } = this.props;
+        const { searchResults, totalResults, isLoading, hasError } = this.props;
         return (
             <SearchPageComponent
                 results={searchResults}
+                totalResults={totalResults}
+                isLoading={isLoading}
+                hasError={hasError}
                 onSearch={this.onSearch} />
         );
     }
@@ -33,16 +33,26 @@ class SearchPage extends Component {
 
 SearchPage.propTypes = {
     searchResults: PropTypes.array,
+    totalResults: PropTypes.number,
+    isLoading: PropTypes.bool,
+    hasError: PropTypes.any,
     onSearchBooks: PropTypes.func.isRequired,
 };
 
 SearchPage.defaultProps = {
     searchResults: [],
+    totalResults: 0,
+    isLoading: false,
+    hasError: null,
 };
 
 const mapStateToProps = ({ books }) => {
+    console.log(books);
     return {
-        searchResults: books.searchedBooks,
+        searchResults: books.searchBooksItems,
+        totalResults: books.searchBooksTotalItems,
+        isLoading: books.searchBooksLoading,
+        hasError: books.searchBooksError,
     };
 };
 

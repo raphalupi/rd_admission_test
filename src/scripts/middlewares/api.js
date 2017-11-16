@@ -1,30 +1,111 @@
-import 'whatwg-fetch';
-export const CALL_API = Symbol('CALL_API');
+import fetch from 'isomorphic-fetch';
+import merge from 'lodash.merge';
 
-export default store => next => action => {
-    if (!action[CALL_API]) {
+export const CALL_API = Symbol('Call API');
+
+export class ErrorWithResponse extends Error {
+    constructor(message, payload) {
+        super(message);
+        this.message = message;
+        this.payload = payload;
+    }
+}
+
+const doAPIRequest = (
+    endpointURL,
+    options = {},
+    getResponse = r => r
+) => {
+    if (!endpointURL) {
+        throw new Error('API request endpoint is required.');
+    }
+
+    const fetchOptions = merge({}, options, {
+        method: options.method || 'GET',
+    });
+
+    return (
+        fetch(endpointURL, fetchOptions).
+            then((response) => {
+                if (!response.ok) {
+                    throw new ErrorWithResponse('Fetch failed', response);
+                }
+
+                const { headers } = response;
+                const contentType = headers.get('content-type') || '';
+
+                if (/text\/html/.test(contentType)) {
+                    location.reload();
+                }
+
+                if (contentType.indexOf('application/json') > -1) {
+                    return response.json();
+                }
+                return response.text();
+            }).
+            then(getResponse));
+};
+
+export default ({ dispatch }) => next => (action) => {
+    const callAPI = action[CALL_API];
+    const isAPICall = typeof callAPI !== 'undefined';
+
+    if (!isAPICall) {
         return next(action);
     }
 
-    let request = action[CALL_API];
-    let { method, path, query, failureType, successType, sendingType } = request;
-    let { dispatch } = store;
+    const {
+        endpoint,
+        types,
+        options,
+        getResponse,
+        requestPayload,
+        successPayload,
+        failurePayload,
+    } = callAPI;
 
-    dispatch({ type: sendingType });
+    if (types.length !== 3) {
+        throw new Error(`API middleware requires 3 action types. ${types.length} where given.`);
+    }
 
-    fetch(path, { method })
-        .query(query)
-        .end((err, res)=> {
-            if (err) {
-                dispatch({
-                    type: failureType,
-                    response: err
-                });
-            } else {
-                dispatch({
-                    type: successType,
-                    response: res.body
-                });
-            }
-        });
+    const [requestType, responseType, failureType] = types;
+
+    dispatch({
+        type: requestType,
+        ...requestPayload
+    });
+
+
+    return (
+        doAPIRequest(endpoint, options, getResponse).
+            then(
+                response => dispatch({ response, type: responseType, ...successPayload }),
+                (error) => {
+                    if (!error.payload) {
+                        dispatch({
+                            error,
+                            type: failureType,
+                            ...failurePayload,
+                        });
+                    } else {
+                        error.payload.json().then(
+                            (payload) => {
+                                dispatch({
+                                    error,
+                                    type: failureType,
+                                    payload,
+                                    ...failurePayload,
+                                });
+                            }).
+                            catch(() => {
+                                dispatch({
+                                    error,
+                                    type: failureType,
+                                    ...failurePayload,
+                                });
+                            });
+                    }
+                }
+            )
+    );
 };
