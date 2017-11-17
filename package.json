@@ -6,11 +6,9 @@
   "author": "Raphael Lupchinski",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --hot",
     "lint": "eslint src",
-    "build": "webpack",
-    "deploy": "yarn cleanup && gh-pages -d dist",
-    "cleanup": "rm -rf node_modules/gh-pages/.cache"
+    "start": "cross-env NODE_ENV=development webpack-dev-server --progress --hot",
+    "build": "cross-env NODE_ENV=production webpack -p --progress"
   },
   "dependencies": {
     "aphrodite": "^1.2.5",
@@ -19,6 +17,7 @@
     "bootstrap": "^3.3.7",
     "classnames": "^2.2.5",
     "core-js": "^2.5.1",
+    "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",
     "eslint": "^4.11.0",
     "eslint-plugin-jsx": "^0.0.2",

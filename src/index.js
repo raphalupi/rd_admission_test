@@ -20,9 +20,16 @@ import SearchPage from './scripts/containers/SearchPage.jsx';
 import FavoritesPage from './scripts/components/FavoritesPage.jsx';
 import BookPage from './scripts/components/BookPage.jsx';
 
+let basename = '';
+
+console.log(NODE_ENV);
+if (NODE_ENV.trim() === 'production') {
+    basename = '/rd_admission_test';
+}
+
 render(
     <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter basename={basename}>
             <div>
                 <Route path="/" component={AppHeader} />
                 <div className="container">
