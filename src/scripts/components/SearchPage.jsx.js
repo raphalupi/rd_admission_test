@@ -43,6 +43,11 @@ const classes = {
     ),
 };
 
+// Component to display the search page. Handles:
+//   query change (triggers a search on ENTER and goes to page 1),
+//   elements per page change (triggers a search and goes to page 1),
+//   sort order change (triggers a search and goes to page 1),
+//   page change (triggers a search and goes to specified page)
 class SearchPage extends Component {
     constructor(props) {
         super(props);
@@ -68,6 +73,7 @@ class SearchPage extends Component {
         this.performSearch = this.performSearch.bind(this);
     }
 
+    // changes sort order and goes to page 0. perform a search with new parameters
     handleSortOrderChange(e) {
         this.setState({
             sortOrder: e.target.value,
@@ -77,6 +83,7 @@ class SearchPage extends Component {
         });
     }
 
+    // changes elements per page and goes to page 0. perform a search with new parameters
     handlePageSizeChange(e) {
         this.setState({
             resultsPerPage: e.target.value,
@@ -86,12 +93,14 @@ class SearchPage extends Component {
         });
     }
 
+    // changes query
     handleOnChange(e) {
         this.setState({
             searchQuery: e.target.value,
         });
     }
 
+    // Checkes if ENTER was pressed and there's a query. goes to page 0 and perform a search with new parameters
     handleKeyDown(e) {
         const { searchQuery } = this.state;
 
@@ -108,6 +117,7 @@ class SearchPage extends Component {
         }
     }
 
+    // updates current page with the specified page
     updatePage(newPage) {
         this.setState({
             page: newPage - 1,
@@ -116,6 +126,7 @@ class SearchPage extends Component {
         });
     }
 
+    // dispatches the action to fetch the books
     performSearch() {
         const { onSearch } = this.props;
         const { searchQuery, sortOrder, page, resultsPerPage } = this.state;
@@ -125,6 +136,10 @@ class SearchPage extends Component {
         }
     }
 
+    // Renders the search controls (search box, page size and sort order selectors),
+    // the loading indicator (text only),
+    // the search results (if any available or a message saying there isn't),
+    // the pagination controls
     render() {
         const { results, totalResults, isLoading } = this.props;
         const { searchQuery, lastQuery, sortOrder, sortTypes, page, resultsPerPage, pageSizes } = this.state;

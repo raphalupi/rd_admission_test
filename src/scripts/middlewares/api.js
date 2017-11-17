@@ -11,6 +11,7 @@ export class ErrorWithResponse extends Error {
     }
 }
 
+// uses the 'fetch' module to make a request
 const doAPIRequest = (
     endpointURL,
     options = {},
@@ -70,12 +71,13 @@ export default ({ dispatch }) => next => (action) => {
 
     const [requestType, responseType, failureType] = types;
 
+    // dispatch the request action
     dispatch({
         type: requestType,
         ...requestPayload
     });
 
-
+    // waits for the request to finish before dispatching either the success action or the failure action
     return (
         doAPIRequest(endpoint, options, getResponse).
             then(

@@ -1,16 +1,9 @@
 import update from 'immutability-helper';
-import { LOCATION_CHANGE } from 'react-router-redux';
 
 import {
     BOOKS_SEARCH_REQUEST,
     BOOKS_SEARCH_SUCCESS,
     BOOKS_SEARCH_FAILURE,
-    BOOK_FETCH_REQUEST,
-    BOOK_FETCH_SUCCESS,
-    BOOK_FETCH_FAILURE,
-    BOOK_ADD_FAVORITE,
-    BOOK_REMOVE_FAVORITE,
-    BOOKS_RETRIEVE_FAVORITES,
 } from '../actions/books';
 
 const initialState = {
@@ -18,10 +11,6 @@ const initialState = {
     searchBooksError: null,
     searchBooksTotalItems: 0,
     searchBooksItems: [],
-    currentBook: {},
-    currentBookLoading: false,
-    currentBookError: null,
-    favoriteBooks: [],
 };
 
 const books = (state = initialState, action) => {
@@ -53,43 +42,16 @@ const books = (state = initialState, action) => {
         });
     }
     case BOOKS_SEARCH_FAILURE: {
-        console.log(action);
-        return state;
-    }
+        const { response } = action;
 
-    case BOOK_FETCH_REQUEST: {
-        console.log(action);
-        return state;
-    }
-
-    case BOOK_FETCH_SUCCESS: {
-        console.log(action);
-        return state;
-    }
-
-    case BOOK_FETCH_FAILURE: {
-        console.log(action);
-        return state;
-    }
-
-    case BOOK_ADD_FAVORITE: {
-        console.log(action);
-        return state;
-    }
-
-    case BOOK_REMOVE_FAVORITE: {
-        console.log(action);
-        return state;
-    }
-
-    case BOOKS_RETRIEVE_FAVORITES: {
-        console.log(action);
-        return state;
-    }
-
-    case LOCATION_CHANGE: {
-        console.log(action);
-        return state;
+        return update(state, {
+            searchBooksLoading: {
+                $set: false,
+            },
+            searchBooksError: {
+                $set: response,
+            },
+        });
     }
 
     default: {

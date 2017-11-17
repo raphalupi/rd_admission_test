@@ -6,6 +6,7 @@ import { searchBooks } from '../actions/books';
 
 import SearchPageComponent from '../components/SearchPage.jsx';
 
+// Renders the serach page providing the search results, loading state and errors from the store.
 class SearchPage extends Component {
     constructor(props) {
         super(props);
@@ -46,15 +47,12 @@ SearchPage.defaultProps = {
     hasError: null,
 };
 
-const mapStateToProps = ({ books }) => {
-    console.log(books);
-    return {
-        searchResults: books.searchBooksItems,
-        totalResults: books.searchBooksTotalItems,
-        isLoading: books.searchBooksLoading,
-        hasError: books.searchBooksError,
-    };
-};
+const mapStateToProps = ({ books }) => ({
+    searchResults: books.searchBooksItems,
+    totalResults: books.searchBooksTotalItems,
+    isLoading: books.searchBooksLoading,
+    hasError: books.searchBooksError,
+});
 
 const mapDispatchToProps = {
     onSearchBooks: searchBooks,

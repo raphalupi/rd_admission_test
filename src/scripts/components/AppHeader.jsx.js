@@ -2,6 +2,8 @@ import React from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
+// Navbar component to be rendered on page top.
+// Uses react-bootstrap to handle behavior on small screens
 const AppHeader = () => (
     <Navbar collapseOnSelect>
         <Navbar.Header>
@@ -21,7 +23,8 @@ const AppHeader = () => (
 );
 
 /*
-    Removing this header link as I couldn't implement the page it led
+    Removing this header link as I couldn't implement the page it led to
+
     <LinkContainer to="/favorites" eventKey={2}>
         <NavItem>Favorites</NavItem>
     </LinkContainer>

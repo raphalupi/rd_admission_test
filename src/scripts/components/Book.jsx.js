@@ -5,6 +5,9 @@ import {
 } from 'react-bootstrap';
 import get from 'lodash.get';
 
+// Component to render a Book card for the search and favorite lists.
+// It renders the thumbnail on the left and book info on the right.
+// Book info consists in links to buy the book, preview it, a brief description, authors and publish date.
 const Book = ({
     bookInfo,
 }) => {

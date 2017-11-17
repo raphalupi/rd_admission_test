@@ -4,17 +4,14 @@ export const BOOKS_SEARCH_REQUEST = 'BOOKS_SEARCH_REQUEST';
 export const BOOKS_SEARCH_SUCCESS = 'BOOKS_SEARCH_SUCCESS';
 export const BOOKS_SEARCH_FAILURE = 'BOOKS_SEARCH_FAILURE';
 
-export const BOOK_FETCH_REQUEST = 'BOOK_FETCH_REQUEST';
-export const BOOK_FETCH_SUCCESS = 'BOOK_FETCH_SUCCESS';
-export const BOOK_FETCH_FAILURE = 'BOOK_FETCH_FAILURE';
-
-export const BOOK_ADD_FAVORITE = 'BOOK_ADD_FAVORITE';
-export const BOOK_REMOVE_FAVORITE = 'BOOK_REMOVE_FAVORITE';
-export const BOOKS_RETRIEVE_FAVORITES = 'BOOKS_RETRIEVE_FAVORITES';
-
+// Google books API key
 const API_KEY = 'AIzaSyDrugRyOGelF2dsIfulTPqf_OFSTyrtDNI';
 
-// runs search on the API
+// Runs search on the API.
+//   Encodes the 'q' parameter
+//   Applies sort in the results (relevance or newest)
+//   controlls the page to fetch and how many books per page
+//   Brings only 'books' and uses a 'lite' projection for fewer data
 export const searchBooks = (q, sort, page, pageSize) => (dispatch) => {
     const endpointBase = 'https://www.googleapis.com/books/v1/volumes';
 
@@ -45,30 +42,3 @@ export const searchBooks = (q, sort, page, pageSize) => (dispatch) => {
         }
     });
 };
-
-/*
-// fetches a book with its id
-export const fetchBook = (bookID) => {
-
-};
-
-// add a book id to the favorite list
-export const addToFavorites = (bookID) => {
-
-};
-
-// remove a book id from the favorite list
-export const removeFromFavorites = (bookID) => {
-
-};
-
-// get all favorite books' ids from local storage
-export const retrieveAllFavorites = (bookID) => {
-
-};
-
-// fetchess all favorite books' ids from the api
-export const fetchAllFavorites = (bookID) => {
-
-};
-*/

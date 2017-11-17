@@ -18,12 +18,11 @@ import { store } from './scripts/store';
 
 import AppHeader from './scripts/components/AppHeader.jsx';
 import SearchPage from './scripts/containers/SearchPage.jsx';
-// import FavoritesPage from './scripts/components/FavoritesPage.jsx';
-// import BookPage from './scripts/components/BookPage.jsx';
 
 let basename = '';
 
 /* eslint-disable no-undef */
+// fixes the basename for github pages
 if (NODE_ENV.trim() === 'production') {
     basename = '/rd_admission_test';
 }
