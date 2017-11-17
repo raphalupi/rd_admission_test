@@ -9,6 +9,7 @@ const Book = ({
     bookInfo,
 }) => {
     const thumbnailImage = get(bookInfo, 'imageLinks.thumbnail', null);
+    const authors = get(bookInfo, 'authors', []);
 
     return (
         <div className="flex flex-row mb4">
@@ -43,7 +44,7 @@ const Book = ({
                     <strong>Publisher</strong>: {bookInfo.publisher}, {bookInfo.publishedDate}
                 </div>
                 <div>
-                    <strong>Authors</strong>: {bookInfo.authors.join(', ')}
+                    <strong>Authors</strong>: {authors.length ? authors.join(', ') : 'No authors'}
                 </div>
             </div>
         </div>
