@@ -13,7 +13,7 @@ module.exports = {
     output: {
         path: path.resolve('docs'),
         filename: 'index_bundle.js',
-        publicPath: '/docs'
+        publicPath: ''
     },
 
     module: {
