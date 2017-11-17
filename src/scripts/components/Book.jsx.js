@@ -1,65 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, css } from 'aphrodite/no-important';
-import classnames from 'classnames';
-
-const styles = StyleSheet.create({
-    wrapper: {
-        display: 'flex',
-        flexDirection: 'column',
-    },
-
-    bookInfoWrapper: {
-        display: 'flex',
-        flexDirection: 'row',
-    }
-});
-
-const classes = {
-    wrapper: classnames(
-        css(styles.wrapper)
-    ),
-
-    bookInfoWrapper: classnames(
-        css(styles.bookInfoWrapper)
-    ),
-};
+import {
+    Image
+} from 'react-bootstrap';
+import get from 'lodash.get';
 
 const Book = ({
     bookInfo,
 }) => {
-    console.log(bookInfo);
-    /*
-    allowAnonLogging:false
-    authors:[
-        "Constance Kamii"
-    ]
-    canonicalVolumeLink:"https://books.google.com/books/about/A_crian%C3%A7a_e_o_n%C3%BAmero_implica%C3%A7%C3%B6es_edu.html?hl=&id=swZpxVpIIi4C"
-    contentVersion:"0.0.1.0.preview.1"
-    description:"A autora apresenta uma análise fundamentada na teoria de Piaget sobre as relações da criança com o número. Nesse livro estão colocadas algumas das questões relacionadas à aquisição e ao uso do conceito de número pelas crianças de 4 a 7 anos."
-    imageLinks:{
-        smallThumbnail: "http://books.google.com/books/content?id=swZpxVpII…=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
-        thumbnail: "http://books.google.com/books/content?id=swZpxVpII…=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-    }
-    infoLink:"http://books.google.com.br/books?id=swZpxVpIIi4C&dq=a&hl=&as_pt=BOOKS&source=gbs_api"
-    maturityRating:"NOT_MATURE"
-    previewLink:"http://books.google.com.br/books?id=swZpxVpIIi4C&printsec=frontcover&dq=a&hl=&as_pt=BOOKS&cd=2&source=gbs_api"
-    publishedDate:"1992"
-    publisher:"Papirus Editora"
-    readingModes:{
-        text: false,
-        image: true
-    }
-    title:"A criança e o número: implicaçöes educacionais da teoria de Piaget para a atuação junto a escolares de 4 a 6 anos"
-    */
+    const thumbnailImage = get(bookInfo, 'imageLinks.thumbnail', null);
+
     return (
-        <div className={classes.wrapper}>
-            <div>
-                <a href={bookInfo.infoLink} rel="noreferrer noopener" target="_blank" className={classes.bookTitleLink}>
+        <div className="flex flex-row mb4">
+            <div className="flex-shrink-0 w-30 w-auto-ns">
+                {thumbnailImage &&
+                    (<a href={bookInfo.infoLink} rel="noreferrer noopener" target="_blank">
+                        <Image src={thumbnailImage} thumbnail />
+                    </a>)}
+            </div>
+            <div className="flex flex-column overflow-x-hidden ml3">
+                <a
+                    href={bookInfo.infoLink}
+                    rel="noreferrer noopener"
+                    target="_blank"
+                    className="b f3 truncate"
+                    title={bookInfo.title}
+                >
                     {bookInfo.title}
                 </a>
-            </div>
-            <div className={classes.bookInfoWrapper}>
+                <div className="truncate">
+                    <strong>Preview</strong>:
+                    <a href={bookInfo.previewLink} rel="noreferrer noopener" target="_blank" className="truncate green ml1">
+                        {bookInfo.previewLink}
+                    </a>
+                </div>
+                {bookInfo.description ?
+                    (<p style={{ maxHeight: '3em' }} className="overflow-y-hidden mt1 mb1">
+                        {bookInfo.description}
+                    </p>) : 'No description available'
+                }
+                <div>
+                    <strong>Publisher</strong>: {bookInfo.publisher}, {bookInfo.publishedDate}
+                </div>
+                <div>
+                    <strong>Authors</strong>: {bookInfo.authors.join(', ')}
+                </div>
             </div>
         </div>
     );

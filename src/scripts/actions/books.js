@@ -46,6 +46,7 @@ export const searchBooks = (q, sort, page, pageSize) => (dispatch) => {
     });
 };
 
+/*
 // fetches a book with its id
 export const fetchBook = (bookID) => {
 
@@ -70,3 +71,4 @@ export const retrieveAllFavorites = (bookID) => {
 export const fetchAllFavorites = (bookID) => {
 
 };
+*/

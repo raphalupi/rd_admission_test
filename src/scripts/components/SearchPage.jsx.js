@@ -1,58 +1,45 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, css } from 'aphrodite/no-important';
 import classnames from 'classnames';
 import {
     ControlLabel,
-    Form,
     FormControl,
-    FormGroup,
     Pagination,
 } from 'react-bootstrap';
 
 import Book from './Book.jsx';
 
-const styles = StyleSheet.create({
-    form: {
-        marginBottom: '15px',
-    },
-
-    formGroup: {
-        width: '100%',
-    },
-
-    searchBox: {
-        width: '100%',
-    },
-
-    sortOrder: {
-        width: 'auto',
-    },
-
-    pageSize: {
-        width: 'auto',
-    },
-});
-
 const classes = {
     form: classnames(
-        css(styles.form)
+        'mb3'
     ),
 
     formGroup: classnames(
-        css(styles.formGroup)
+        'w-100'
+    ),
+
+    formGroupFilters: classnames(
+        'flex',
+        'flex-row',
+        'mb4'
     ),
 
     searchBox: classnames(
-        css(styles.searchBox)
+        'w-100'
     ),
 
     sortOrder: classnames(
-        css(styles.sortOrder)
+        'w-auto'
     ),
 
     pageSize: classnames(
-        css(styles.pageSize)
+        'w-auto'
+    ),
+
+    filterLabelWrapper: classnames(
+        'flex',
+        'flex-column',
+        'mr3'
     ),
 };
 
@@ -151,25 +138,27 @@ class SearchPage extends Component {
                 boundaryLinks
                 prev
                 next
-                maxButtons={6}
+                maxButtons={10}
                 items={availablePages}
                 onSelect={this.updatePage} />);
 
         return (
             <div>
-                <Form className={classes.form}>
-                    <FormGroup controlId="formBasicText" className={classes.formGroup}>
-                        <FormControl
-                            bsSize="lg"
-                            className={classes.searchBox}
-                            type="text"
-                            value={searchQuery}
-                            placeholder="Search a Book"
-                            onChange={(e) => this.handleOnChange(e)}
-                            onKeyDown={(e) => this.handleKeyDown(e)} />
+                <form className={classes.form}>
+                    <FormControl
+                        bsSize="lg"
+                        className={classes.searchBox}
+                        type="text"
+                        value={searchQuery}
+                        placeholder="Search a Book"
+                        onChange={(e) => this.handleOnChange(e)}
+                        onKeyDown={(e) => this.handleKeyDown(e)} />
+                </form>
 
+                <form className={classes.formGroupFilters}>
+                    <div className={classes.filterLabelWrapper}>
+                        <ControlLabel>Sort by:</ControlLabel>
                         <FormControl
-                            bsSize="lg"
                             className={classes.sortOrder}
                             componentClass="select"
                             placeholder="Sort by"
@@ -180,9 +169,11 @@ class SearchPage extends Component {
                                 <option key={type} value={type}>{type}</option>
                             ))}
                         </FormControl>
+                    </div>
 
+                    <div className={classes.filterLabelWrapper}>
+                        <ControlLabel>Results per page:</ControlLabel>
                         <FormControl
-                            bsSize="lg"
                             className={classes.pageSize}
                             componentClass="select"
                             placeholder="Page size"
@@ -193,8 +184,8 @@ class SearchPage extends Component {
                                 <option key={size} value={size}>{size}</option>
                             ))}
                         </FormControl>
-                    </FormGroup>
-                </Form>
+                    </div>
+                </form>
 
                 {isLoading ? (<span>Loading...</span>) : null}
 
@@ -210,7 +201,10 @@ class SearchPage extends Component {
                         onFavoriteToggle={() => {}} />
                 ))}
 
-                {!isLoading && results.length ? pagination : null}
+                {!isLoading && results.length ?
+                    (<div className="tc">{pagination}</div>) :
+                    null
+                }
             </div>
         );
     }

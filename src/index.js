@@ -11,21 +11,23 @@ import 'core-js/fn/symbol';
 import 'core-js/es6/map';
 import 'core-js/es6/set';
 
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'tachyons/css/tachyons.min.css';
 
 import { store } from './scripts/store';
 
 import AppHeader from './scripts/components/AppHeader.jsx';
 import SearchPage from './scripts/containers/SearchPage.jsx';
-import FavoritesPage from './scripts/components/FavoritesPage.jsx';
-import BookPage from './scripts/components/BookPage.jsx';
+// import FavoritesPage from './scripts/components/FavoritesPage.jsx';
+// import BookPage from './scripts/components/BookPage.jsx';
 
 let basename = '';
 
-console.log(NODE_ENV);
+/* eslint-disable no-undef */
 if (NODE_ENV.trim() === 'production') {
     basename = '/rd_admission_test';
 }
+/* eslint-enable no-undef */
 
 render(
     <Provider store={store}>
@@ -34,11 +36,15 @@ render(
                 <Route path="/" component={AppHeader} />
                 <div className="container">
                     <Route path="/" component={SearchPage} exact />
-                    <Route path="/favorites" component={FavoritesPage} />
-                    <Route path="/book/:id" component={BookPage} />
                 </div>
             </div>
         </BrowserRouter>
     </Provider>,
     document.getElementById('root')
 );
+
+/*
+    Removing the following routes as I couldn't implement them
+    <Route path="/favorites" component={FavoritesPage} />
+    <Route path="/book/:id" component={BookPage} />
+*/

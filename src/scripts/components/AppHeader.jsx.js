@@ -15,12 +15,16 @@ const AppHeader = () => (
                 <LinkContainer to="/" eventKey={1} exact>
                     <NavItem>Home</NavItem>
                 </LinkContainer>
-                <LinkContainer to="/favorites" eventKey={2}>
-                    <NavItem>Favorites</NavItem>
-                </LinkContainer>
             </Nav>
         </Navbar.Collapse>
     </Navbar>
 );
+
+/*
+    Removing this header link as I couldn't implement the page it led
+    <LinkContainer to="/favorites" eventKey={2}>
+        <NavItem>Favorites</NavItem>
+    </LinkContainer>
+*/
 
 export default AppHeader;
